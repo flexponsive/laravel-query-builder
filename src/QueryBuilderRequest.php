@@ -78,7 +78,12 @@ class QueryBuilderRequest extends Request
         $sortParts = $this->getRequestData($sortParameterName);
 
         if (is_string($sortParts)) {
-            $sortParts = explode($this->delimiter(), $sortParts);
+            if ($this->delimiter() === '') {
+                $sortParts = [ $sortParts ];
+            }
+            else {
+                $sortParts = explode($this->delimiter(), $sortParts);
+            }
         }
 
         return collect($sortParts)->filter();
