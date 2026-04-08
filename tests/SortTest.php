@@ -438,3 +438,13 @@ function createQueryFromSortRequest(?string $sort = null): QueryBuilder
 
     return QueryBuilder::for(TestModel::class, $request);
 }
+
+
+it('does not fail with empty delimiter', function () {
+    config()->set('query-builder.delimiter', '');
+
+    createQueryFromSortRequest('id')
+        ->allowedSorts('id');
+
+    expect(true)->toBeTrue();
+});
